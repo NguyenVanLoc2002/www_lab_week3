@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <bean id="myProperties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:sample.properties</value>
+            </list>
+        </property>
+        <property name="ignoreResourceNotFound" value="true"/>
+        <property name="ignoreUnresolvablePlaceholders" value="true"/>
+    </bean>
+
+    <bean id="st1" class="org.example.models.Student">
+        <property name="id" value="001"/>
+        <property name="name" value="Nguyễn Minh Long"/>
+    </bean>
+
+    <bean id="lop1" class="org.example.models.Clazz">
+        <property name="classId" value="DHKTPM16A"/>
+        <property name="className" value="${ten_lop}"/>
+    </bean>
+
+
+
+    <bean id="st2" class="org.example.models.Student">
+        <property name="id" value="002"/>
+        <property name="name" value="Tran Van Tan"/>
+        <property name="clazz" ref="lop1"/>
+    </bean>
+
+    <bean id="st3" class="org.example.models.Student">
+        <constructor-arg name="id" value="003"/>
+        <constructor-arg  name="name" value="Nguyen Thi Men"/>
+        <constructor-arg  name="clazz" ref="lop1"/>
+    </bean>
+
+    <bean id="add1" class="org.example.models.Address">
+        <property name="street" value="Nguyen Van Bao"/>
+        <property name="city" value="Ho Chi Minh"/>
+        <property name="country" value="Viet Nam"/>
+    </bean>
+
+    <bean id="add2" class="org.example.models.Address">
+        <property name="street" value="DT741"/>
+        <property name="city" value="Phuoc Long"/>
+        <property name="country" value="Viet Nam"/>
+    </bean>
+
+    <bean id="p1" class="org.example.models.Person">
+        <property name="name" value="Nguyen Van Loc"/>
+        <property name="age" value="21"/>
+        <property name="addresses" >
+            <list>
+                <ref bean="add1"/>
+                <ref bean="add2"/>
+            </list>
+        </property>
+
+        <property name="emails">
+            <list>
+                <value>nguyena@gamil.com</value>
+                <value>haohao2023@gamil.com</value>
+            </list>
+        </property>
+    </bean>
+
+<!--    Spring’s Auto-wiring-->
+    <bean id="clazz" class="org.example.models.Clazz">
+        <property name="classId" value="12NC2"/>
+        <property name="className" value="Lop 12 nang cao 2"/>
+    </bean>
+
+    <bean id="st4" class="org.example.models.Student" autowire="byName">
+        <property name="id" value="004"/>
+        <property name="name" value="Nguyen Minh Du"/>
+    </bean>
+
+<!--    <bean id="st5" class="org.example.models.Student" autowire="byType">-->
+<!--        <property name="id" value="005"/>-->
+<!--        <property name="name" value="Tran Thu Thiem"/>-->
+<!--    </bean>-->
+
+</beans>
